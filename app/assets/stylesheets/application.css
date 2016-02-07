@@ -13,3 +13,32 @@
  *= require_tree .
  *= require_self
  */
+
+body {
+  margin: 0;
+  overflow-x: hidden;
+}
+
+#container {
+  margin: .5em;
+}
+
+.results {
+  position: relative;
+  margin: 0;
+  width: 100%;
+}
+
+.chart {
+  background: #3a0ea8;
+  height: 3.5em;
+  margin: 0;
+  padding: 0;
+  position: relative;
+}
+
+.label {
+  margin: .5em;
+  padding: 0;
+  width: 100%;
+}

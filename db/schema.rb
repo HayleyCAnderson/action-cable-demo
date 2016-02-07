@@ -11,7 +11,24 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160131234004) do
+ActiveRecord::Schema.define(version: 20160207224507) do
+
+  create_table "answers", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.integer "survey_id",               null: false
+    t.integer "number",                  null: false
+    t.text    "text",      limit: 65535, null: false
+    t.index ["survey_id"], name: "index_answers_on_survey_id", using: :btree
+  end
+
+  create_table "phones", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string "name",   null: false
+    t.string "number", null: false
+  end
+
+  create_table "surveys", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string "name",                   null: false
+    t.text   "question", limit: 65535, null: false
+  end
 
   create_table "users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "username",           default: "", null: false
@@ -26,4 +43,5 @@ ActiveRecord::Schema.define(version: 20160131234004) do
     t.index ["username"], name: "index_users_on_username", unique: true, using: :btree
   end
 
+  add_foreign_key "answers", "surveys"
 end

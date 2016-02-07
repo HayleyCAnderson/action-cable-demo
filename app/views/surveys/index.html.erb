@@ -1,0 +1,7 @@
+<div id='container'>
+  <h2>Take a survey!</h2>
+
+  <% @surveys.each do |survey| %>
+    <h4><%= link_to survey.name, survey_path(survey) %></h4>
+  <% end %>
+</div>

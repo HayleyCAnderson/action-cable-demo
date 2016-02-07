@@ -1,0 +1,17 @@
+<div id='container'>
+  <%= link_to 'Home', surveys_path %>
+
+  <h2>Survey #<%= @survey.id %>: <%= @survey.name %></h2>
+
+  <ul>
+    <% @survey.answers.each do |answer| %>
+      <li>Answer #<strong><%= answer.number %></strong>: <%= answer.text %></li>
+    <% end %>
+  </ul>
+
+  <h3>Text "Survey <%= @survey.id %>: (number of your answer)" to <%= @phone.number %></h3>
+</div>
+
+<%= react_component('Results', {
+  answers: @survey.answers.map { |a| {number: a.number, text: a.text} }
+}) %>
