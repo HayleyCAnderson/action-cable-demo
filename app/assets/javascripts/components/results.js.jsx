@@ -21,6 +21,32 @@ var Results = React.createClass({
     return <div className='results'>{ results }</div>;
   },
 
+  updateResults(data) {
+    var updateState = function(state) {
+      numbers = $.map(state.answers, function(a) { return a.number; })
+      index = numbers.indexOf(data['vote']);
+      if (index > -1) {
+        state.answers[index]['count'] += 1;
+        state.total += 1;
+      }
+    };
+
+    this.setState(updateState);
+  },
+
   componentDidMount() {
+    var survey_id = this.props.survey_id;
+    var updateResults = this.updateResults;
+
+    App.output = App.cable.subscriptions.create('SurveyChannel', {
+      connected() {
+        var self = this;
+        setTimeout(function() { self.perform('subscribe', {id: survey_id}) }, 1000);
+      },
+
+      received(data) {
+        updateResults(data);
+      }
+    });
   }
 });
